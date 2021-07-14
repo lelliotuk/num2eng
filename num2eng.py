@@ -54,7 +54,7 @@ def int2eng(num):
        if not h:
             continue
        if word:
-           word =f"{hund(h)} {POW3[i]}, {word}"
+           word = f"{hund(h)} {POW3[i]}, {word}"
        else:
            word = f"{hund(h)} {POW3[i]}"
 
