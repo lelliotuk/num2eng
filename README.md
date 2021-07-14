@@ -1,4 +1,4 @@
-# eng_num
+# num2eng
 Convert integers (0 to 10^123-1 inclusive) to English and back
 
 ```python
