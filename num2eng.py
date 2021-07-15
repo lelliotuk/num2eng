@@ -1,10 +1,27 @@
-DIGITS = ("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
-TENS = ("twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred")
-POW3 = ("thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion", "tredecillion", "quattuordecillion", "quindecillion", "sexdecillion", "septendecillion", "octodecillion", "novemdecillion", "vigintillion", "unvigintillion", "duovigintillion", "trevigintillion", "quattuorvigintillion", "quinvigintillion", "sexvigintillion", "septenvigintillion", "octovigintillion", "novemvigintillion", "trigintillion", "untrigintillion", "duotrigintillion", "tretrigintillion", "quattuortrigintillion", "quintrigintillion", "sextrigintillion", "septentrigintillion", "octotrigintillion", "novemtrigintillion")
+DIGITS = ("zero", "one", "two", "three", "four", "five", "six", "seven",
+          "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
+          "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
 
-MAX_INT = 10**123-1
+TENS = ("twenty", "thirty", "forty", "fifty", "sixty",
+        "seventy", "eighty", "ninety", "hundred")
 
-def hund(num, add_and = False):
+POW3 = ("thousand", "million", "billion", "trillion", "quadrillion",
+        "quintillion", "sextillion", "septillion", "octillion", "nonillion",
+        "decillion", "undecillion", "duodecillion", "tredecillion",
+        "quattuordecillion", "quindecillion", "sexdecillion",
+        "septendecillion", "octodecillion", "novemdecillion", "vigintillion",
+        "unvigintillion", "duovigintillion", "trevigintillion",
+        "quattuorvigintillion", "quinvigintillion", "sexvigintillion",
+        "septenvigintillion", "octovigintillion", "novemvigintillion",
+        "trigintillion", "untrigintillion", "duotrigintillion",
+        "tretrigintillion", "quattuortrigintillion", "quintrigintillion",
+        "sextrigintillion", "septentrigintillion", "octotrigintillion",
+        "novemtrigintillion")
+
+MAX_INT = 10**123 - 1
+
+
+def hund(num, add_and=False):
     and_used = False
 
     word = ""
@@ -32,12 +49,11 @@ def hund(num, add_and = False):
         return "and " + word
     else:
         return word
-            
-        
+
 
 def int2eng(num):
     if num < 0 or num > MAX_INT:
-        raise ValueError("Number must meet: 0 >= number < 10**123")
+        raise ValueError("Integer must meet: 0 >= integer < 10^123")
 
     word = None
     if num < 1000:
@@ -47,42 +63,43 @@ def int2eng(num):
             word = hund(num % 1000, add_and=True)
     else:
         return hund(num)
-    
+
     for i, p3 in enumerate(POW3):
-       pw = 1000 ** (i+1)
-       h = num // pw % 1000
-       if not h:
+        pw = 1000 ** (i + 1)
+        h = num // pw % 1000
+        if not h:
             continue
-       if word:
-           word = f"{hund(h)} {POW3[i]}, {word}"
-       else:
-           word = f"{hund(h)} {POW3[i]}"
+        if word:
+            word = f"{hund(h)} {POW3[i]}, {word}"
+        else:
+            word = f"{hund(h)} {POW3[i]}"
 
     return word
+
 
 def eng2int(num):
     num = num.replace(",", " ")
     num = num.replace("-", " ")
     num = num.lower()
     num = num.split(" ")
-    
+
     out = 0
     hund = 0
-    
+
     for word in num:
-        if word in DIGITS: 
+        if word in DIGITS:
             hund += DIGITS.index(word)
 
         elif word in TENS:
             index = TENS.index(word)
-            if index == 8: # hundred
+            if index == 8:  # hundred
                 hund = (hund or 1) * 100
             else:
                 hund += (index + 2) * 10
 
         elif word in POW3:
-            out += 1000 ** (POW3.index(word)+1) * hund
+            out += 1000 ** (POW3.index(word) + 1) * hund
             hund = 0
-            
+
     out += hund
     return out
