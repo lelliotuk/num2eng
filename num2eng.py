@@ -76,7 +76,7 @@ def eng2int(num):
         elif word in TENS:
             index = TENS.index(word)
             if index == 8: # hundred
-                hund = hund * 100
+                hund = (hund or 1) * 100
             else:
                 hund += (index + 2) * 10
 
