@@ -78,10 +78,10 @@ def int2eng(num):
 
 
 def eng2int(num):
-    num = num.replace(",", " ")
-    num = num.replace("-", " ")
-    num = num.lower()
-    num = num.split(" ")
+    num = num.replace(",", " ") \
+             .replace("-", " ") \
+             .lower() \
+             .split(" ")
 
     out = 0
     hund = 0
