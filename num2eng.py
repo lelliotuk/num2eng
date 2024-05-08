@@ -133,7 +133,7 @@ def eng2int(num):
     return out
 
 
-last_re = re.compile("[^-\s][a-zA-Z]+$")
+last_re = re.compile(r"[^-\s][a-zA-Z]+$")
 
 
 def card2ord(num):  # not ideal
